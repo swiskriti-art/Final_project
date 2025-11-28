@@ -1,0 +1,133 @@
+---
+title: "EDA"
+format: html
+editor: visual
+---
+
+Reading the csv file
+
+```{r}
+library(tidyverse)
+library (readr)
+```
+
+```{r}
+
+diabetes_data <- read_csv("diabetes_binary_health_indicators_BRFSS2015.csv")
+diabetes_data
+
+```
+
+```{r}
+diabetes_bin <- diabetes_data |>
+  mutate(Diabetes_binary = factor (Diabetes_binary, levels = c (0,1),
+                  labels = c ("No diabetes", "Diabetes")),
+    HighBP = factor (HighBP, levels = c(0, 1), 
+                    labels = c ("No High BP", "High BP")),
+    HighChol= factor(HighChol, levels = c(0,1), 
+                     labels = c ("No high colesterol", "High colesterol")),
+    CholCheck = factor(CholCheck, levels = c(0, 1),
+                    labels = c( "No check in 5 years", "Yes check in 5 years" )),
+    Smoker = factor(Smoker, levels = c(0,1),
+                   labels = c("No","Yes")),
+    Stroke = factor(Stroke,levels = c(0,1),
+                    labels = c ("No","Yes")),
+   
+    HeartDiseaseorAttack= factor(HeartDiseaseorAttack, levels=c(0,1),
+                     labels = c("No","Yes")),
+   
+    PhysActivity= factor(PhysActivity, levels=c(0,1),
+                          labels = c("No","Yes")),
+    Fruits = factor(Fruits, levels=c(0,1),
+             labels = c("0/day","1 or more/day")),
+    Veggies = factor(Veggies, levels=c(0,1),
+                      labels = c("0/day","1 or more/day")),
+    HvyAlcoholConsump= factor (HvyAlcoholConsump, levels=c(0,1),
+                     labels = c("No","Yes")),
+    AnyHealthcare = factor(AnyHealthcare, levels=c(0,1),
+                          labels = c("No","Yes")),
+    NoDocbcCost = factor(NoDocbcCost, levels=c(0,1), 
+                          labels = c("No doc visit past yr","Yes doc visit")), 
+    GenHlth = factor(GenHlth, levels=c(1,2,3,4,5), 
+                      labels = c("Excellent", "Very good","Good","Fair", "Poor")),  
+    DiffWalk = factor(DiffWalk, levels=c(0,1),
+                       labels = c("Not Difficult","Difficult")),
+    Sex = factor(Sex, levels=c(0,1),
+                 labels = c("Female","Male")),
+    Age = factor(Age, levels = 1:13, 
+                labels = c("18-24", "25-29", "30-34", "35-39", "40-44",
+                           "45-49","50-54","55-59","60-64","65-69","70-74","75-79",">=80")),
+    Education = factor(Education, levels = 1:6,
+                        labels = c("No school or only K", "Grades 1-8", "Grades 9-11","Grade 12 or GED", "College 1-3 yrs", "College 4 yrs or more")),
+    Income = factor(Income, levels = 1:8, 
+                    labels = c(" <$10000", " >=10000 & <15000", ">=15000 & <20000", ">=20000 & <25000", ">=25000 & <35000", ">=35000 & <50000", ">=50000 & <75000", ">=75000"))
+  )
+diabetes_bin
+```
+## Checking the data
+```{r}
+diabetes_bin |>
+ is.na () |>
+ colSums()
+```
+ 
+ Summarize numeric column to see value distribution
+```{r}
+summary(diabetes_bin |>
+          select(where(is.numeric))
+        )
+```
+Looking at numeric data summaries, the BMI seems about right.The mental health and physical health (illness) days shows less number of overall illness.  
+
+Checking for uniqueness of data
+```{r}
+table(diabetes_bin$Income)
+```
+Checking data relationship with some variables
+
+```{r}
+table(diabetes_bin$Diabetes_binary, diabetes_bin$Age)
+```
+We can see that that as the age increases there are more chances to have diabetes, data seems to be normal.
+```{r}
+table(diabetes_bin$Diabetes_binary, diabetes_bin$PhysActivity)
+```
+Looking at past 30 days physical activity, we can't say anything about diabetes occurrence.
+```{r}
+table(diabetes_bin$Diabetes_binary, diabetes_bin$HighChol)
+```
+From the above, there seems to be some correlation between high cholesterol and diabetes.
+
+## Data visualization
+
+Creating the box plots for categorical variables 
+```{r}
+ggplot(data=diabetes_bin,
+       aes(x=BMI, y=Diabetes_binary)) +
+  geom_boxplot() +
+  labs(y = "")
+```
+From the above BMI box plot above, diabetes occurrence is sightly higher on average for higher BMI than those with no diabetes  
+```{r}
+ggplot(data=diabetes_bin,
+       aes(x=Diabetes_binary, fill = Income )) +
+  geom_bar() +
+  facet_wrap(diabetes_bin$Income) +
+  labs(x = "")
+```
+From the above plot, income doesn't seem to have much correlation with having diabetes or not.
+```{r}
+ggplot(data=diabetes_bin,
+       aes(x=Diabetes_binary, fill = GenHlth )) +
+  geom_bar() +
+  facet_wrap(diabetes_bin$GenHlth) +
+  labs(x = "")
+```
+Comparing general health and diabetes, we can say when the General health is good, there is less chances of having diabetes, however we cannot say anything about when the General health is poor and fair. Because no diabetes and diabetes both looks equal in fair and poor general health.
+
+
+
+
+ 
+ 
+
