@@ -95,7 +95,7 @@ Random forest creates multiple decision trees for both classification and regres
 
 Create random forest model
 ```{r}
-rand_mod <- rand_forest(mtry = tune()) |>
+rand_mod <- rand_forest(mtry = tune(), trees = 100) |>
   set_engine("ranger") |>
   set_mode("classification")
 rand_mod
@@ -121,12 +121,25 @@ ran_fit |>
   collect_metrics() |>
   arrange(mean)
 ```
-Selecting the best metric
+Selecting the best model
 ```{r}
 ran_best <- select_best(ran_fit, metric = "mn_log_loss" )
 ran_best
 ```
-
+Fitting the best model on the test set
+```{r}
+ran_final_wkf <- ran_wfk |>
+  finalize_workflow(ran_best)
+ran_final_fit <- ran_final_wkf |>
+  last_fit(diabetes_bin_split, metrics = metric_set(mn_log_loss))
+ran_final_fit
+```
+Collecting metric
+```{r}
+ran_final_fit |>
+  collect_metrics()
+```
+After fitting both models on the test set, random forest is the best model using the least log loss metric.
 
 
 
