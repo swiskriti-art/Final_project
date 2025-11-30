@@ -11,6 +11,18 @@ library(tidyverse)
 library (readr)
 ```
 
+## Introduction
+
+The data that we are analyzing is a diabetes data from [Diabetes Health Indicators Dataset](https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset/) , specifically the diabetes_binary_health_indicators_BRFSS2015.csv which contains binary diabetes indicators. It provides data on whether a person has diabetes or not with other health/lifestyle related variables. It has 22 columns with 3 numeric and other categorical variables.
+
+Using the data we are analyzing what factors affect diabetes. We will look at some key variables and analyze their relationship with diabetes occurrence. Diabetes_binary variable gives us the diabetes or not. We will analyze the following variables against the Diabetes_binary variable:
+- BMI: This variable provides the body mass index
+- Age: This variable provides the age group
+- Income: This variable provides the income range
+- GenHlth: This variable provides the general health category
+- PhysActivity: This variable provides whether there was physical activity in the past 30 days
+- HighChol: This variable provides the cholesterol level
+
 ```{r}
 
 diabetes_data <- read_csv("diabetes_binary_health_indicators_BRFSS2015.csv")
@@ -64,50 +76,64 @@ diabetes_bin <- diabetes_data |>
   )
 diabetes_bin
 ```
+
 ## Checking the data
+
 ```{r}
 diabetes_bin |>
  is.na () |>
  colSums()
 ```
- 
- Summarize numeric column to see value distribution
+
+Summarize numeric column to see value distribution
+
 ```{r}
 summary(diabetes_bin |>
           select(where(is.numeric))
         )
 ```
-Looking at numeric data summaries, the BMI seems about right.The mental health and physical health (illness) days shows less number of overall illness.  
+
+Looking at numeric data summaries, the BMI seems about right.The mental health and physical health (illness) days shows less number of overall illness.
 
 Checking for uniqueness of data
+
 ```{r}
 table(diabetes_bin$Income)
 ```
+
 Checking data relationship with some variables
 
 ```{r}
 table(diabetes_bin$Diabetes_binary, diabetes_bin$Age)
 ```
+
 We can see that that as the age increases there are more chances to have diabetes, data seems to be normal.
+
 ```{r}
 table(diabetes_bin$Diabetes_binary, diabetes_bin$PhysActivity)
 ```
+
 Looking at past 30 days physical activity, we can't say anything about diabetes occurrence.
+
 ```{r}
 table(diabetes_bin$Diabetes_binary, diabetes_bin$HighChol)
 ```
+
 From the above, there seems to be some correlation between high cholesterol and diabetes.
 
 ## Data visualization
 
-Creating the box plots for categorical variables 
+Creating the box plots for categorical variables
+
 ```{r}
 ggplot(data=diabetes_bin,
        aes(x=BMI, y=Diabetes_binary)) +
   geom_boxplot() +
   labs(y = "")
 ```
-From the above BMI box plot above, diabetes occurrence is sightly higher on average for higher BMI than those with no diabetes  
+
+From the above BMI box plot above, diabetes occurrence is sightly higher on average for higher BMI than those with no diabetes
+
 ```{r}
 ggplot(data=diabetes_bin,
        aes(x=Diabetes_binary, fill = Income )) +
@@ -115,7 +141,9 @@ ggplot(data=diabetes_bin,
   facet_wrap(diabetes_bin$Income) +
   labs(x = "")
 ```
+
 From the above plot, income doesn't seem to have much correlation with having diabetes or not.
+
 ```{r}
 ggplot(data=diabetes_bin,
        aes(x=Diabetes_binary, fill = GenHlth )) +
@@ -123,11 +151,5 @@ ggplot(data=diabetes_bin,
   facet_wrap(diabetes_bin$GenHlth) +
   labs(x = "")
 ```
+
 Comparing general health and diabetes, we can say when the General health is good, there is less chances of having diabetes, however we cannot say anything about when the General health is poor and fair. Because no diabetes and diabetes both looks equal in fair and poor general health.
-
-
-
-
- 
- 
-
