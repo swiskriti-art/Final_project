@@ -112,9 +112,12 @@ We can see that that as the age increases there are more chances to have diabete
 ```{r}
 table(diabetes_bin$Diabetes_binary, diabetes_bin$PhysActivity)
 ```
-
 Looking at past 30 days physical activity, we can't say anything about diabetes occurrence.
 
+```{r}
+table(diabetes_bin$Diabetes_binary, diabetes_bin$Sex)
+```
+Looking at the sex breakdown, there seems to be a little more prevalence of diabetes in male than female.
 ```{r}
 table(diabetes_bin$Diabetes_binary, diabetes_bin$HighChol)
 ```
