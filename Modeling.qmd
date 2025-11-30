@@ -141,6 +141,27 @@ ran_final_fit |>
 ```
 After fitting both models on the test set, random forest is the best model using the least log loss metric.
 
+Fitting the best random forest model to the entire data set
+```{r}
+final_model <- ran_final_wkf |>
+  fit(diabetes_bin)
+final_model
+saveRDS(final_model, file="final_model.RDS")
+
+```
+```{r}
+pred <- function(BMI = 28.38, Age = "60-64" , Sex = "Female", PhysActivity = "Yes", HighChol = "No high colesterol", GenHlth = "Very good") {
+  bmi <- as.numeric(BMI)
+  new_data <- as_tibble(data.frame(BMI = c(bmi), Age = c(Age), Sex = c(Sex), PhysActivity = c(PhysActivity), HighChol = HighChol, GenHlth = GenHlth))
+  predict(final_model, new_data)
+}
+pred()
+
+```
+
+
+
+
 
 
 

@@ -105,6 +105,7 @@ Checking data relationship with some variables
 
 ```{r}
 table(diabetes_bin$Diabetes_binary, diabetes_bin$Age)
+table(diabetes_bin$Age)
 ```
 
 We can see that that as the age increases there are more chances to have diabetes, data seems to be normal.
