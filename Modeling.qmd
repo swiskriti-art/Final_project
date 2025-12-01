@@ -149,14 +149,13 @@ final_model
 saveRDS(final_model, file="final_model.RDS")
 
 ```
+Confusion matrix plot for the predictions against the actual data
 ```{r}
-pred <- function(BMI = 28.38, Age = "60-64" , Sex = "Female", PhysActivity = "Yes", HighChol = "No high colesterol", GenHlth = "Very good") {
-  bmi <- as.numeric(BMI)
-  new_data <- as_tibble(data.frame(BMI = c(bmi), Age = c(Age), Sex = c(Sex), PhysActivity = c(PhysActivity), HighChol = HighChol, GenHlth = GenHlth))
-  predict(final_model, new_data)
-}
-pred()
-
+preds <- predict(final_model, new_data = diabetes_bin, type = "class")
+cf <- conf_mat(diabetes_bin |> mutate(estimate = preds |> pull()),
+         Diabetes_binary, 
+         estimate)
+autoplot(cf, type = "heatmap") 
 ```
 
 

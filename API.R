@@ -1,10 +1,10 @@
 library(tidymodels)
 library(tidyverse)
 library(plumber)
+library(ggplot2)
 
 #Read our final model
 model <- readRDS(file = "final_model.RDS")
-print(class(model))
 
 
 #* API endpoint info
@@ -28,3 +28,20 @@ function(BMI = 28.38, Age = "60-64" , Sex = "Female", PhysActivity = "Yes", High
   new_data <- as_tibble(data.frame(BMI = c(bmi), Age = c(Age), Sex = c(Sex), PhysActivity = c(PhysActivity), HighChol = HighChol, GenHlth = GenHlth))
   predict(model, new_data)
 }
+
+#example API calls for the pred endpoint
+#http://127.0.0.1:29602/pred
+#http://127.0.0.1:29602/pred?BMI=30&Age=55-59&Sex=Female&PhysActivity=No&HighChol=High%20colesterol&GenHlth=Poor
+#http://127.0.0.1:29602/pred?BMI=35&Age=55-59&Sex=Male&PhysActivity=No&HighChol=High%20colesterol&GenHlth=Good
+
+#* API endpoint to get a confusion matrix plot of the fitted model
+#* @serializer png
+#* @get /confusion
+function() {
+  preds <- predict(model, new_data = diabetes_bin, type = "class")
+  cf <- conf_mat(diabetes_bin |> mutate(estimate = preds |> pull()),
+                 Diabetes_binary,
+                 estimate)
+  print(autoplot(cf, type = "heatmap"))
+}
+
