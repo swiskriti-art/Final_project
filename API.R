@@ -5,6 +5,7 @@ library(ggplot2)
 
 #Read our final model
 model <- readRDS(file = "final_model.RDS")
+diabetes_bin <- readRDS(file = "diabetes_bin.RDS")
 
 
 #* API endpoint info

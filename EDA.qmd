@@ -15,13 +15,7 @@ library (readr)
 
 The data that we are analyzing is a diabetes data from [Diabetes Health Indicators Dataset](https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset/) , specifically the diabetes_binary_health_indicators_BRFSS2015.csv which contains binary diabetes indicators. It provides data on whether a person has diabetes or not with other health/lifestyle related variables. It has 22 columns with 3 numeric and other categorical variables.
 
-Using the data we are analyzing what factors affect diabetes. We will look at some key variables and analyze their relationship with diabetes occurrence. Diabetes_binary variable gives us the diabetes or not. We will analyze the following variables against the Diabetes_binary variable:
-- BMI: This variable provides the body mass index
-- Age: This variable provides the age group
-- Income: This variable provides the income range
-- GenHlth: This variable provides the general health category
-- PhysActivity: This variable provides whether there was physical activity in the past 30 days
-- HighChol: This variable provides the cholesterol level
+Using the data we are analyzing what factors affect diabetes. We will look at some key variables and analyze their relationship with diabetes occurrence. Diabetes_binary variable gives us the diabetes or not. We will analyze the following variables against the Diabetes_binary variable: - BMI: This variable provides the body mass index - Age: This variable provides the age group - Income: This variable provides the income range - GenHlth: This variable provides the general health category - PhysActivity: This variable provides whether there was physical activity in the past 30 days - HighChol: This variable provides the cholesterol level
 
 ```{r}
 
@@ -76,7 +70,6 @@ diabetes_bin <- diabetes_data |>
   )
 diabetes_bin
 ```
-
 ## Checking the data
 
 ```{r}
@@ -113,12 +106,15 @@ We can see that that as the age increases there are more chances to have diabete
 ```{r}
 table(diabetes_bin$Diabetes_binary, diabetes_bin$PhysActivity)
 ```
+
 Looking at past 30 days physical activity, we can't say anything about diabetes occurrence.
 
 ```{r}
 table(diabetes_bin$Diabetes_binary, diabetes_bin$Sex)
 ```
+
 Looking at the sex breakdown, there seems to be a little more prevalence of diabetes in male than female.
+
 ```{r}
 table(diabetes_bin$Diabetes_binary, diabetes_bin$HighChol)
 ```
@@ -157,3 +153,11 @@ ggplot(data=diabetes_bin,
 ```
 
 Comparing general health and diabetes, we can say when the General health is good, there is less chances of having diabetes, however we cannot say anything about when the General health is poor and fair. Because no diabetes and diabetes both looks equal in fair and poor general health.
+
+Saving data
+```{r}
+saveRDS(diabetes_bin, "diabetes_bin.RDS")
+```
+
+
+[Click here for the Modeling Page](Modeling.html)
