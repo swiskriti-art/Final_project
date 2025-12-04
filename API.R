@@ -31,9 +31,9 @@ function(BMI = 28.38, Age = "60-64" , Sex = "Female", PhysActivity = "Yes", High
 }
 
 #example API calls for the pred endpoint
-#http://127.0.0.1:29602/pred
-#http://127.0.0.1:29602/pred?BMI=30&Age=55-59&Sex=Female&PhysActivity=No&HighChol=High%20colesterol&GenHlth=Poor
-#http://127.0.0.1:29602/pred?BMI=35&Age=55-59&Sex=Male&PhysActivity=No&HighChol=High%20colesterol&GenHlth=Good
+#http://127.0.0.1:8000/pred
+#http://127.0.0.1:8000/pred?BMI=30&Age=55-59&Sex=Female&PhysActivity=No&HighChol=High%20colesterol&GenHlth=Poor
+#http://127.0.0.1:8000/pred?BMI=35&Age=55-59&Sex=Male&PhysActivity=No&HighChol=High%20colesterol&GenHlth=Good
 
 #* API endpoint to get a confusion matrix plot of the fitted model
 #* @serializer png
