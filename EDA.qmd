@@ -4,12 +4,6 @@ format: html
 editor: visual
 ---
 
-Reading the csv file
-
-```{r}
-library(tidyverse)
-library (readr)
-```
 
 ## Introduction
 
@@ -18,12 +12,19 @@ The data that we are analyzing is a diabetes data from [Diabetes Health Indicato
 Using the data we are analyzing what factors affect diabetes. We will look at some key variables and analyze their relationship with diabetes occurrence. Diabetes_binary variable gives us the diabetes or not. We will analyze the following variables against the Diabetes_binary variable: - BMI: This variable provides the body mass index - Age: This variable provides the age group - Income: This variable provides the income range - GenHlth: This variable provides the general health category - PhysActivity: This variable provides whether there was physical activity in the past 30 days - HighChol: This variable provides the cholesterol level
 
 ```{r}
+library(tidyverse)
+library (readr)
+```
+
+Reading the csv file
+```{r}
 
 diabetes_data <- read_csv("diabetes_binary_health_indicators_BRFSS2015.csv")
 diabetes_data
 
 ```
 
+Adding factors
 ```{r}
 diabetes_bin <- diabetes_data |>
   mutate(Diabetes_binary = factor (Diabetes_binary, levels = c (0,1),
@@ -158,6 +159,5 @@ Saving data
 ```{r}
 saveRDS(diabetes_bin, "diabetes_bin.RDS")
 ```
-
 
 [Click here for the Modeling Page](Modeling.html)

@@ -4,11 +4,9 @@ format: html
 editor: visual
 ---
 
-## Modeling
+This data has binary response variable `diabetes_binary` that gives whether there is diabetes or not. Our response variable is a categorical variable so a classification task, when we have categorical variable as response like success or failure we can use logistic regression model for predictions.
 
-This data have binary response variable diabetes_binary that gives whether there is diabetes or not. Our response variable is a categorical variable so a classification task, when we have categorical variable as response like success or failure we can use logistic regression model for predictions.
-
-We will be using Classification Tree and Random Forest to create models for the Diabetes_binary variable. We will be using the following as predictors: BMI, Age, Sex, PhysActivity, HighChol, GenHlth variable. After that we will select the best out the two models, using log-loss as metric.
+We will be using Classification Tree and Random Forest to create models for the Diabetes_binary variable. We will be using the following as predictors: `BMI`, `Age`, `Sex`, `PhysActivity`, `HighChol`, `GenHlth` variable. After that we will select the best out the two models, using log-loss as metric.
 
 ## Classification Tree
 

@@ -13,7 +13,7 @@ diabetes_bin <- readRDS(file = "diabetes_bin.RDS")
 
 function() {
   list(Name = "Sushila Dawadi",
-       URL = "") # Add github pages
+       URL = "https://swiskriti-art.github.io/Final_project/EDA.html")
 }
 
 #* API endpoint for diabetes prediction "pred"

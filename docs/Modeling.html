@@ -133,11 +133,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="modeling" class="level2">
-<h2 class="anchored" data-anchor-id="modeling">Modeling</h2>
-<p>This data have binary response variable diabetes_binary that gives whether there is diabetes or not. Our response variable is a categorical variable so a classification task, when we have categorical variable as response like success or failure we can use logistic regression model for predictions.</p>
-<p>We will be using Classification Tree and Random Forest to create models for the Diabetes_binary variable. We will be using the following as predictors: BMI, Age, Sex, PhysActivity, HighChol, GenHlth variable. After that we will select the best out the two models, using log-loss as metric.</p>
-</section>
+<p>This data has binary response variable <code>diabetes_binary</code> that gives whether there is diabetes or not. Our response variable is a categorical variable so a classification task, when we have categorical variable as response like success or failure we can use logistic regression model for predictions.</p>
+<p>We will be using Classification Tree and Random Forest to create models for the Diabetes_binary variable. We will be using the following as predictors: <code>BMI</code>, <code>Age</code>, <code>Sex</code>, <code>PhysActivity</code>, <code>HighChol</code>, <code>GenHlth</code> variable. After that we will select the best out the two models, using log-loss as metric.</p>
 <section id="classification-tree" class="level2">
 <h2 class="anchored" data-anchor-id="classification-tree">Classification Tree</h2>
 <p>Classification tree allows us to classify group membership. It tries to split up the predictor space into regions forming a tree and use the most prevalent class in the region as prediction.</p>

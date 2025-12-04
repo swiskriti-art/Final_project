@@ -133,7 +133,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Reading the csv file</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>The data that we are analyzing is a diabetes data from <a href="https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset/">Diabetes Health Indicators Dataset</a> , specifically the diabetes_binary_health_indicators_BRFSS2015.csv which contains binary diabetes indicators. It provides data on whether a person has diabetes or not with other health/lifestyle related variables. It has 22 columns with 3 numeric and other categorical variables.</p>
+<p>Using the data we are analyzing what factors affect diabetes. We will look at some key variables and analyze their relationship with diabetes occurrence. Diabetes_binary variable gives us the diabetes or not. We will analyze the following variables against the Diabetes_binary variable: - BMI: This variable provides the body mass index - Age: This variable provides the age group - Income: This variable provides the income range - GenHlth: This variable provides the general health category - PhysActivity: This variable provides whether there was physical activity in the past 30 days - HighChol: This variable provides the cholesterol level</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -150,10 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (readr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>The data that we are analyzing is a diabetes data from <a href="https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset/">Diabetes Health Indicators Dataset</a> , specifically the diabetes_binary_health_indicators_BRFSS2015.csv which contains binary diabetes indicators. It provides data on whether a person has diabetes or not with other health/lifestyle related variables. It has 22 columns with 3 numeric and other categorical variables.</p>
-<p>Using the data we are analyzing what factors affect diabetes. We will look at some key variables and analyze their relationship with diabetes occurrence. Diabetes_binary variable gives us the diabetes or not. We will analyze the following variables against the Diabetes_binary variable: - BMI: This variable provides the body mass index - Age: This variable provides the age group - Income: This variable provides the income range - GenHlth: This variable provides the general health category - PhysActivity: This variable provides whether there was physical activity in the past 30 days - HighChol: This variable provides the cholesterol level</p>
+<p>Reading the csv file</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>diabetes_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"diabetes_binary_health_indicators_BRFSS2015.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -187,6 +187,7 @@ dbl (22): Diabetes_binary, HighBP, HighChol, CholCheck, BMI, Smoker, Stroke,...
 #   DiffWalk &lt;dbl&gt;, Sex &lt;dbl&gt;, Age &lt;dbl&gt;, Education &lt;dbl&gt;, Income &lt;dbl&gt;</code></pre>
 </div>
 </div>
+<p>Adding factors</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>diabetes_bin <span class="ot">&lt;-</span> diabetes_data <span class="sc">|&gt;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Diabetes_binary =</span> <span class="fu">factor</span> (Diabetes_binary, <span class="at">levels =</span> <span class="fu">c</span> (<span class="dv">0</span>,<span class="dv">1</span>),</span>
